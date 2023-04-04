@@ -42,6 +42,13 @@ async function run() {
             const result = await productCollection.updateOne(query, updateDoc, options)
             res.send(result)
         })
+        app.get('/products/:type', async (req, res) => {
+            const id = req.params.type;
+            console.log(id)
+            const query = { category: id }
+            const result = await productCollection.find(query).toArray()
+            res.send(result)
+        })
         app.post('/cartproducts', async (req, res) => {
             const products = req.body;
             const result = await cartProductCollection.insertOne(products)
